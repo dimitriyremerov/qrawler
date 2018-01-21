@@ -2,10 +2,10 @@
 
 namespace Qrawler\Model;
 
-use Qrawler\Model\Base\Result as BaseResult;
+use Qrawler\Model\Base\EmailQuery as BaseEmailQuery;
 
 /**
- * Skeleton subclass for representing a row from the 'results' table.
+ * Skeleton subclass for performing query and update operations on the 'emails' table.
  *
  *
  *
@@ -14,7 +14,7 @@ use Qrawler\Model\Base\Result as BaseResult;
  * long as it does not already exist in the output directory.
  *
  */
-class Result extends BaseResult
+class EmailQuery extends BaseEmailQuery
 {
 
 }

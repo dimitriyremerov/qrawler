@@ -1,4 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <database name="default" defaultIdMethod="native" namespace="Qrawler\Model" defaultPhpNamingMethod="underscore">
+    <table name="jobs" phpName="Job">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="input" type="varchar" size="255" required="true"/>
+        <column name="status" type="integer" required="true" defaultExpr="-1"/>
+        <column name="result_id" type="integer" required="false" />
+        <column name="error" type="varchar" size="255" required="false"/>
+        <unique name="input">
+            <unique-column name="input"/>
+        </unique>
+        <foreign-key foreignTable="results" phpName="Result" refPhpName="Job">
+            <reference local="result_id" foreign="id"/>
+        </foreign-key>
+        <vendor type="mysql">
+            <parameter name="Engine" value="InnoDB"/>
+        </vendor>
+    </table>
 
+    <table name="results" phpName="Result">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="input" type="varchar" size="255" required="true"/>
+        <unique name="input">
+            <unique-column name="input"/>
+        </unique>
+        <vendor type="mysql">
+            <parameter name="Engine" value="InnoDB"/>
+        </vendor>
+    </table>
+
+    <table name="urls" phpName="Url">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="result_id" type="integer" required="true"/>
+        <column name="url" type="varchar" size="255" required="true"/>
+        <foreign-key foreignTable="results" phpName="Result" refPhpName="Url">
+            <reference local="result_id" foreign="id"/>
+        </foreign-key>
+        <vendor type="mysql">
+            <parameter name="Engine" value="InnoDB"/>
+        </vendor>
+    </table>
+
+    <table name="emails" phpName="Email">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+        <column name="result_id" type="integer" required="true"/>
+        <column name="url_id" type="integer" required="true"/>
+        <column name="email" type="varchar" size="255" required="true"/>
+        <foreign-key foreignTable="results" phpName="Result" refPhpName="Email">
+            <reference local="result_id" foreign="id"/>
+        </foreign-key>
+        <foreign-key foreignTable="urls" phpName="Url" refPhpName="Email">
+            <reference local="url_id" foreign="id"/>
+        </foreign-key>
+        <vendor type="mysql">
+            <parameter name="Engine" value="InnoDB"/>
+        </vendor>
+    </table>
 </database>

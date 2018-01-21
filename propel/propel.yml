@@ -1,0 +1,10 @@
+propel:
+    database:
+        connections:
+            default:
+                adapter: mysql
+                dsn: 'mysql:host=qrawler-db;port=3306;dbname=qrawler'
+                user: qrawler
+                password: YSfd2eWUioVLU
+                settings:
+                    charset: utf8

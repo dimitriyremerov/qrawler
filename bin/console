@@ -19,6 +19,6 @@ if (!isset($app['console'])) {
 
 /* @var $console ConsoleApplication */
 $console = $app['console'];
-$console->add(new \Qrawler\Command\CrawlerWorker($app['file_fetcher']));
+$console->add(new \Qrawler\Command\QueueManager($app['file_fetcher']));
 
 $console->run();
