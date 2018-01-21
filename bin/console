@@ -1,0 +1,24 @@
+#!/usr/bin/env php
+<?php
+use Knp\Console\Application as ConsoleApplication;
+
+require_once __DIR__.'/../vendor/autoload.php';
+
+$bootstrapFilePath = __DIR__.'/../app/bootstrap.php';
+
+set_time_limit(0);
+
+$app = require $bootstrapFilePath;
+
+if (!$app instanceof Silex\Application) {
+    throw new LogicException(sprintf('The bootstrap file %s must return an instance of Silex\Application.', $bootstrapFilePath));
+}
+if (!isset($app['console'])) {
+    throw new LogicException('The console service does not exist. Did you forget to register Knp\Provider\ConsoleServiceProvider ?');
+}
+
+/* @var $console ConsoleApplication */
+$console = $app['console'];
+$console->add(new \Qrawler\Command\CrawlerWorker($app['file_fetcher']));
+
+$console->run();

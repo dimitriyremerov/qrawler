@@ -3,10 +3,19 @@
     "description": "Test assignment for Starred",
     "type": "project",
     "require": {
+        "php": ">=7.0",
         "silex/silex": "^2.0",
-        "propel/propel": "dev-master"
+        "propel/propel": "dev-master",
+        "symfony/console": "~3.0",
+        "knplabs/console-service-provider": "^2.1",
+        "jeroen/file-fetcher": "^4.2"
     },
-    "license": "http://www.apache.org/licenses/LICENSE-2.0",
+    "autoload": {
+        "psr-4": {
+            "Qrawler\\": "src/"
+        }
+    },
+    "license": "MIT",
     "authors": [
         {
             "name": "Dimitriy Remerov",
