@@ -1,6 +1,6 @@
+HOSTNAME=qrawler.qask.ru
 SHELL=/bin/bash
 TARGET=target
-HOSTNAME=qrawler.qask.ru
 
 all: init build-image build image
 
