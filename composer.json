@@ -1,0 +1,17 @@
+{
+    "name": "dimitriyremerov/qrawler",
+    "description": "Test assignment for Starred",
+    "type": "project",
+    "require": {
+        "silex/silex": "^2.0",
+        "propel/propel": "dev-master"
+    },
+    "license": "http://www.apache.org/licenses/LICENSE-2.0",
+    "authors": [
+        {
+            "name": "Dimitriy Remerov",
+            "email": "dimitriy@remerov.ru"
+        }
+    ],
+    "minimum-stability": "dev"
+}
