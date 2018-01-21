@@ -1,0 +1,8 @@
+*
+!app
+!bin
+!src
+!propel
+!web
+!composer.json
+!composer.lock
