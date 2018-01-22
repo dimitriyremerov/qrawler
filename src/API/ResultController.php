@@ -17,14 +17,8 @@ class ResultController extends AbstractController
             return $this->formatResponse(['error' => 'No such result'], 404);
         }
         $emails = $result->getEmails();
-        $emailIds = [];
-        foreach ($emails as $email) {
-            /* @var $email Email */
-            $emailIds[] = $email->getId();
-            $emailsOutput[$email->getId()] = $email->toArray();
-        }
+        $urls = $result->getUrls();
 
-        $urls = UrlQuery::create()->findByResultId($result->getId());
         $urlsById = [];
         foreach ($urls as $url) {
             $urlsById[$url->getId()] = $url;
@@ -41,5 +35,4 @@ class ResultController extends AbstractController
 
         return $this->formatResponse($result->toArray() + ['Emails' => $emailsOutput]);
     }
-
 }

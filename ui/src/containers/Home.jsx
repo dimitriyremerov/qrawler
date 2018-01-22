@@ -29,12 +29,15 @@ class Home extends Component {
         this.update();
     }
 
-    update() {
+    update(final) {
         if (this.state.job && (this.state.job.Status === 2 || this.state.job.Status === -1)) {
             this.axios.get('job/' + this.state.job.Id).then(
                 (response) => {
                     const job = response.data;
                     this.setState({job: job});
+                    if (job.Status === 0 && !final) {
+                        this.update(true);
+                    }
                 }
             ).catch(
                 (error) => {
