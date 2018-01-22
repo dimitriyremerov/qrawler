@@ -7,21 +7,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class JobController
+class JobController extends AbstractController
 {
-    /**
-     * @var Request
-     */
-    protected $request;
-
-    /**
-     * JobController constructor.
-     * @param Request $request
-     */
-    public function __construct(Request $request)
-    {
-        $this->request = $request;
-    }
 
     public function get($id): Response
     {
@@ -43,14 +30,6 @@ class JobController
             $job->save();
         }
         return $this->formatResponse($job->toArray());
-    }
-
-    protected function formatResponse(array $responseArray, $status = null) : Response
-    {
-        if (!isset($status)) {
-            $status = 200;
-        }
-        return new JsonResponse(json_encode($responseArray), $status);
     }
 
 }

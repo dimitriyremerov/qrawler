@@ -9,7 +9,6 @@ require_once __DIR__.'/../vendor/autoload.php';
 require_once __DIR__.'/conf/propel.php';
 
 $app = new Application();
-$app['debug'] = true;
 
 // Changing request type to json because we are working with SPA.
 $app->before(function (\Symfony\Component\HttpFoundation\Request $request) {
