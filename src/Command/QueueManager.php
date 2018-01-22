@@ -146,6 +146,14 @@ class QueueManager extends Command
             }
             return ($url[0] === '/') ? sprintf('%s://%s%s', $urlData['scheme'], $urlData['host'], $url) : $url;
         }, $matches[1]);
+        // We need to do this filtering one more time to prevent '//' addresses with different hosts to appear (regex not ideal)
+        $urls = array_filter(array_map(function ($url) use ($urlData) {
+            $newUrlData = parse_url($url);
+            if ($newUrlData['host'] !== $urlData['host']) {
+                return null;
+            }
+            return $url;
+        }, $urls));
         $parsedData['urls'] = array_fill_keys($urls, $url);
 
         return $parsedData;
