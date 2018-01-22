@@ -16,7 +16,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 class QueueManager extends Command
 {
     const EMAIL_PATTERN = '/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i';
-    const URL_PATTERN = '#<a[^>]*href=[\'"]((?:https?://%s)?/[^\'"]*)[\'"]#';
+    const URL_PATTERN = '#<a[^>]*href=[\'"]((?:(?:https?:)?//%s)?/[^\'"]*)[\'"]#';
     // By the original requirement in the task we should only follow the links from the *original* page, not recursively.
     const MAX_DEPTH = 1;
 
@@ -141,6 +141,9 @@ class QueueManager extends Command
         preg_match_all(sprintf(self::URL_PATTERN, $urlData['host']), $data, $matches);
         $urls = array_map(function ($url) use ($urlData) {
             // We are aware it only supports requests on default ports (80, 443). We'll change this when we require.
+            if (substr($url, 0, 2) === '//') {
+                return sprintf('%s:%s', $urlData['scheme'], $url);
+            }
             return ($url[0] === '/') ? sprintf('%s://%s%s', $urlData['scheme'], $urlData['host'], $url) : $url;
         }, $matches[1]);
         $parsedData['urls'] = array_fill_keys($urls, $url);
